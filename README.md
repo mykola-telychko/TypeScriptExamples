@@ -11,6 +11,8 @@ PLAN:
 
 -  clear code from comments 
 
+https://www.typescriptlang.org/play/?q=144#example/indexed-types
+
 Unknown and Never ( https://www.typescriptlang.org/play/?q=44#example/union-and-intersection-types)
 
 -----------------------------------------
