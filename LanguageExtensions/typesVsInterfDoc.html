@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeScript Interfaces vs Type Aliases</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #0078d7;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        th {
+            background-color: #0078d7;
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+        }
+        
+        td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f8ff;
+        }
+        
+        tr:hover {
+            background-color: #e6f2ff;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 90%;
+        }
+        
+        .highlight {
+            background-color: #fffde7;
+            border-left: 3px solid #ffd600;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        
+        .code-block {
+            display: block;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>TypeScript: Interfaces vs Type Aliases</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Interface</th>
+                <th>Type Alias</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Basic Usage</td>
+                <td>
+                    <code class="code-block">interface BirdInterface { 
+  wings: 2; 
+}</code>
+                </td>
+                <td>
+                    <code class="code-block">type BirdType = { 
+  wings: 2; 
+};</code>
+                </td>
+            </tr>
+            <tr>
+                <td>Extension</td>
+                <td>
+                    Uses <code>extends</code> keyword:
+                    <code class="code-block">interface Chicken extends BirdInterface { 
+  colourful: false; 
+  flies: false; 
+}</code>
+                </td>
+                <td>
+                    Uses intersection operator <code>&</code>:
+                    <code class="code-block">type Owl = { 
+  nocturnal: true 
+} & BirdType;</code>
+                </td>
+            </tr>
+            <tr>
+                <td>Declaration Merging</td>
+                <td>
+                    Supported (open):
+                    <code class="code-block">interface Kitten { purrs: boolean; }
+interface Kitten { colour: string; }
+// Results in combined interface</code>
+                </td>
+                <td>
+                    Not supported (closed):
+                    <code class="code-block">type Puppy = { color: string; };
+// This will cause an error:
+// type Puppy = { toys: number; };</code>
+                </td>
+            </tr>
+            <tr>
+                <td>Computed Properties</td>
+                <td>Not supported</td>
+                <td>Supported</td>
+            </tr>
+            <tr>
+                <td>Error Messages</td>
+                <td>Generally more descriptive and focused</td>
+                <td>Sometimes more cryptic with complex types</td>
+            </tr>
+            <tr>
+                <td>Compatibility</td>
+                <td colspan="2">
+                    TypeScript is structurally typed, so they're compatible if structures match:
+                    <code class="code-block">const bird1: BirdType = { wings: 2 };
+const bird3: BirdInterface = bird1; // Valid</code>
+                </td>
+            </tr>
+            <tr>
+                <td>Use Cases</td>
+                <td>
+                    - Public APIs<br>
+                    - When you need declaration merging<br>
+                    - Object-oriented code with classes<br>
+                    - When better error messages are needed
+                </td>
+                <td>
+                    - Complex types with unions/intersections<br>
+                    - When you need mapped types<br>
+                    - When you need computed properties<br>
+                    - When defining function or tuple types
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="highlight">
+        <strong>Recommendation:</strong> Use interfaces for public APIs and when you expect the type to be extended. Use type aliases for complex types, unions, and when you need more flexibility with type transformations.
+    </div>
+</body>
+</html>
