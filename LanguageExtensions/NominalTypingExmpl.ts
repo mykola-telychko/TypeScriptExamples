@@ -16,4 +16,4 @@ const input = "alert('bobby tables')";
 const validatedInput = validateUserInput(input);
 printName(validatedInput);
 
-// printName(input); // ❌ Type error
+// printName(input); //  Type error
